@@ -2,7 +2,7 @@ def solution(s, skip, index):
     alphabet = "abcdefghijklmnopqrstuvwxyz"
     allow_alphabet = ''
     for i in alphabet:
-        if i not in skip:
+        if i not in skip: # skip에 있는 알파벳을 제외한 알파벳 문자열 만들어주기
             allow_alphabet += i
 
     result = ''
