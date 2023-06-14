@@ -1,3 +1,6 @@
+# https://bladejun.tistory.com/115
+# 위 블로그에서 딕셔너리에 좌표값을 넣는 아이디어로 코드 수정해서 해결
+
 def solution(numbers, hand):
     key_pad = {1: [0, 0], 2: [0, 1], 3: [0, 2], # 키패드를 숫자를 key, 그에 해당하는 좌표를 value로 딕셔너리 생성 
            4: [1, 0], 5: [1, 1], 6: [1, 2],
