@@ -1,4 +1,7 @@
-files = [(0, 1), (1, 2), (2, 3)]
+lst = [1,2,3,4]
 
-for i in range(len(files)):
-    print(files[i][1])
+for i in lst:
+    i *= 2
+    lst.append(i)
+
+print(lst)
