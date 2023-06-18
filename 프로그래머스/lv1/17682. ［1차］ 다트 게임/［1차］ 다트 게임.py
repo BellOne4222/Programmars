@@ -2,8 +2,8 @@ def solution(dartResult):
     num = ''
     answers = []
     for i in dartResult:
-        if i.isnumeric():
-            num += i
+        if i.isnumeric(): # isnumeric() : 숫자로만 이루어진 문자열인지 판별 함수
+            num += i # 문자열에 추가하는 방법으로 두자리 숫자도 해결
         elif i == "S":
             score = pow(int(num), 1)
             answers.append(score)
