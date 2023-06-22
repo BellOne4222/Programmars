@@ -6,6 +6,8 @@
 # s에는 둘 이상의 정수가 공백으로 구분되어 있습니다.
 
 def solution(s):
-    nums = list(map(int, s.split(" "))) # 문자열.split(기준) : 문자열을 기준점으로 나누어 주고 나눈 것을 리스트로 반환해준다.
-    answer = "{} {}".format(min(nums), max(nums))
-    return answer
+    lst = list(map(int, s.split())) # int로 변형해서 리스트 생성
+    lst.sort()
+    
+    result = "{} {}".format(min(lst), max(lst)) # 최솟값과 최댓값 반환
+    return result
