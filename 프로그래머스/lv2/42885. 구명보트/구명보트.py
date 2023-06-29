@@ -6,9 +6,11 @@ def solution(people, limit):
     HW_idx = len(people) - 1 # 가장 무게가 무거운 사람의 인덱스
     
     while LW_idx < HW_idx:
+        # 보트에 두 명을 태우는 경우
         if people[LW_idx] + people[HW_idx] <= limit:
             LW_idx += 1
             HW_idx -= 1
+        # 보트에 한 명 밖에 못 태우는 경우
         else:
             HW_idx -= 1
             
@@ -18,7 +20,8 @@ def solution(people, limit):
         boat += 1
     
     return boat
-            
+
+
             
                 
                 
