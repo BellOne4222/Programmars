@@ -1,36 +1,18 @@
+# h를 배열의 최댓값까지 돌리고, 인덱스를 배열의 길이만큼 돌려서 h번 이상 인용된 논문의 개수(cnt)와, h가 같을때 조건이 충족되므로, 그 때의 cnt를 결과로 반환
+
 def solution(citations):
     arr = sorted(citations)
     max_h = 0
     for h in range(max(citations)+1):
         cnt = 0
         for idx in range(len(arr)):
-            if arr[idx] >= h:
+            if arr[idx] >= h: 
                 cnt += 1
             if cnt == h:
                 max_h = cnt
     return max_h
-            
-            
-# def solution(citations):
-#     answer = 0
-#     citations.sort()
-#     max_check = 0
-#     for h in range(max(citations)+1):
-#         cnt = 0
-#         for idx in range(len(citations)):
-#             if h <= citations[idx]:
-#                 cnt += 1
-#             if cnt == h:
-#                 answer = cnt
-#                 max_check = max(max_check,answer)
-#     # 테케 11번이 뭐지?
-#     return max_check
-        
-        
-    
-    
 
-
+# 이 문제 설명을 보고서 그제서야 문제를 이해하게 되었습니다....
 # [ 1,3,9,7,2,8,5,6,4,0 ]
 
 # 위와 같은 예시가 있습니다.
