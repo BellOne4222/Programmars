@@ -1,16 +1,12 @@
-from collections import Counter
+def solution(citations):
+    arr = sorted(citations)
+    citations_dict = {num:0 for num in arr}
+    for h in range(max(citations)+1):
+        cnt = 0
+        for i in arr:
+            if i >= h:
+                cnt += 1
+            if cnt < h:
+                break
 
-def solution(k, tangerine):
-    tan_counter = Counter(tangerine)
-    tanger_dict = dict(sorted(tan_counter.items(), key=lambda x: x[1], reverse=True))
-    tangerines = 0
-    result = 0
-    for tangerine, count in tanger_dict.items():
-        if tangerines >= k:
-            break
-        tangerines += count
-        result += 1
-    
-    return result
-
-print(solution(6, [1, 3, 2, 5, 4, 5, 2, 3]))
+print(solution([3, 0, 6, 1, 5]))
