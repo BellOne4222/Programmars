@@ -1,3 +1,5 @@
+# 행렬의 곱셈을 공부하고 식 그대로 구현
+
 def solution(arr1, arr2):
     m = len(arr1) # arr1의 세로 
     k_1 = len(arr1[0]) # arr1의 가로
