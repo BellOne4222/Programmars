@@ -1,17 +1,6 @@
-# [[0,4],[5,10],[6,8],[8,9]] 3 이 반례 때문에 실패..
+N = 4
 
-def solution(targets):
-    targets = sorted(targets)
-    misails = []
-    current = targets[0]
-    misails.append(current)
-    for i in range(1, len(targets)):
-        if targets[i][0] < current[1]:
-            continue
-        else:
-            current = targets[i]
-            misails.append(current)
-            
-    
-    result = len(misails)
-    return result
+T, S = list(map(int, input().split()))
+Do_lst = [[3,5], [8,14], [5,20], [1,16]]
+Do_lst.sort(key=lambda x:x[0])
+print(Do_lst)
