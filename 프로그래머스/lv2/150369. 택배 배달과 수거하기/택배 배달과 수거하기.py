@@ -1,7 +1,7 @@
 def solution(cap, n, deliveries, pickups):
     move = 0 # 움직인 거리
     
-    # 배달, 수거 할 곳이 없어지면 종료
+    # 배달, 수거 할 곳이 없어질때 까지 반복
     while deliveries or pickups:
         # 가장 멀리 있는 곳이 갈 필요가 없어지면(0이면), 없애기
         while deliveries and deliveries[-1] == 0:
