@@ -1,17 +1,14 @@
-answer = 25 * 55
-def solution(picks, minerals):
-    global answer
-    dfs(picks,minerals,0)
-    return answer
+compare = 10 ** 6
 
-def dfs(picks, minerals, tiredness):
-    global answer
+
+def dfs(picks, minerals, fatigability):
+    global compare
 
     if sum(picks) == 0 or not minerals:
-        answer = min(tiredness, answer)
+        compare = min(fatigability, compare)
         return
 
-    for i in range(3):
+    for i in range(len(picks)):
         tiredCount = 0
         if picks[i] >= 1:
             picks[i] -= 1
@@ -32,5 +29,11 @@ def dfs(picks, minerals, tiredness):
                         tiredCount += 5
                     else:
                         tiredCount += 1
-            dfs(picks, minerals[5:], tiredness + tiredCount)
+            dfs(picks, minerals[5:], fatigability + tiredCount)
             picks[i] += 1
+
+
+def solution(picks, minerals):
+    global compare
+    dfs(picks,minerals,0)
+    return compare
