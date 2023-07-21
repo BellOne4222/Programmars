@@ -1,38 +1,33 @@
-result = 10 ** 6
+def solution(priorities, location):
+    # 만약 우선순위 리스트의 길이가 1이라면, 그 문서는 1번째로 인쇄됨.
+    if len(priorities) == 1:
+        return 1
 
+    length = len(priorities)  # 우선순위 리스트의 길이 저장
+    cnt = 1  # 인쇄 순서 카운터 초기화 (처음에 1로 초기화하고 시작)
+    candidate = priorities.pop(0)  # 우선순위 리스트의 첫 번째 문서를 후보로 지정
 
-def dfs(picks, minerals, fatigability):
-    global result
+    while priorities:  # 아직 인쇄해야 할 문서가 남아있는 동안 반복
+        if location > 0:  # 특정 문서를 찾지 못한 경우 (location이 0보다 큰 경우)
+            if candidate < max(priorities):  # 후보 문서보다 더 우선순위가 높은 문서가 존재하는 경우
+                priorities.append(candidate)  # 후보 문서를 맨 뒤로 이동시킴 (다시 큐의 맨 뒤로 가게 됨)
+            else:  # 후보 문서가 가장 우선순위가 높은 경우
+                cnt += 1  # 해당 문서를 인쇄하고 인쇄 순서 카운터를 증가시킴
+            location -= 1  # 다음 문서로 이동하기 위해 위치 값을 1 감소시킴
 
-    if sum(picks) == 0 or not minerals: # 곡괭이가 없거나 캘 광물이 없을 때, 피로도 반환
-        result = min(fatigability, result)
-        return
+        else:  # 특정 문서를 찾은 경우 (location이 0 이하인 경우)
+            if candidate < max(priorities):  # 후보 문서보다 더 우선순위가 높은 문서가 존재하는 경우
+                priorities.append(candidate)  # 후보 문서를 맨 뒤로 이동시킴 (다시 큐의 맨 뒤로 가게 됨)
+                location = len(priorities) - 1  # 위치 값을 큐의 맨 뒤로 갱신 (인덱스는 0부터 시작하므로 길이 - 1)
+            else:  # 후보 문서가 가장 우선순위가 높은 경우
+                break  # 해당 문서를 인쇄하고 반복 종료
 
-    for i in range(len(picks)):
-        fatigue = 0
-        if picks[i] >= 1:
-            picks[i] -= 1
-            mined = minerals[:5]
-            if i == 0: # 다이아 곡괭이 일때
-                fatigue += len(mined)
-            elif i == 1: # 철 곡괭이 일때
-                for mineral in mined:
-                    if mineral == "diamond":
-                        fatigue += 5
-                    else:
-                        fatigue += 1
-            elif i == 2: # 돌 곡괭이 일때
-                for mineral in mined:
-                    if mineral == "diamond":
-                        fatigue += 25
-                    elif mineral == "iron":
-                        fatigue += 5
-                    else:
-                        fatigue += 1
-            dfs(picks, minerals[5:], fatigability + fatigue) # 광물 배열에서 5개 캤으므로 5부터 잘라서 다시 dfs 호출
-            picks[i] += 1 # 곡괭이를 하나 썼고 다음 광물 캘때의 곡괭이 조합에서 다시 사용할 수 있게 1개 다시 추가
+        candidate = priorities.pop(0)  # 다음 후보 문서를 선택하기 위해 큐에서 첫 번째 문서를 꺼냄
 
+    # 인쇄할 숫자가 가장 마지막에 나왔을 경우 (큐에 남은 문서가 없을 경우)
+    if not priorities:
+        answer = length  # 전체 문서의 개수가 정답
+    else:  # 아직 인쇄해야 할 문서가 남아있는 경우
+        answer = cnt  # 현재까지 인쇄한 문서의 개수가 정답
 
-def solution(picks, minerals):
-    dfs(picks,minerals,0)
-    return result
+    return answer  # 최종 정답 반환
