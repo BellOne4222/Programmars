@@ -15,7 +15,7 @@ def solution(priorities, location):
             if compare < max(priorities):  # 후보 프로세스보다 더 우선순위가 높은 프로세스가 존재하는 경우
                 priorities.append(compare)  # 후보 프로세스를 맨 뒤로 이동시킴 (다시 큐의 맨 뒤로 가게 됨)
             else:  # 후보 프로세스가 가장 우선순위가 높은 경우
-                cnt += 1  # 해당 프로세스를 진행하고 진행 순서 카운터를 증가시킴
+                process_cnt += 1  # 해당 프로세스를 진행하고 진행 순서 카운터를 증가시킴
             location -= 1  # 다음 프로세스로 이동하기 위해 위치 값을 1 감소시킴
 
         else:  # 특정 프로세스를 찾은 경우 (location이 0 이하인 경우)
@@ -29,8 +29,8 @@ def solution(priorities, location):
 
     # 진행할 숫자가 가장 마지막에 나왔을 경우 (큐에 남은 프로세스가 없을 경우)
     if not priorities:
-        answer = length  # 전체 프로세스의 개수가 정답
+        result = length  # 전체 프로세스의 개수가 정답
     else:  # 아직 진행해야 할 프로세스가 남아있는 경우
-        answer = cnt  # 현재까지 진행한 프로세스의 개수가 정답
+        result = process_cnt  # 현재까지 진행한 프로세스의 개수가 정답
 
-    return answer  # 최종 정답 반환
+    return result  # 최종 정답 반환
