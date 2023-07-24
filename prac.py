@@ -1,6 +1,6 @@
-def solution(str1, str2):
-    
-    
+import math
+
+def solution(str1, str2):    
     
     # 문자열 공백 제거
     str1 = str1.lower()
@@ -24,9 +24,14 @@ def solution(str1, str2):
     # 원본에서 remove하면서 진행하면 값이 사라져서 중간에 error 발생
     for k in compare_1: 
         if k in compare_2:
+            if len(compare_3) == 0 or len((compare_4)) == 0:
+                    break
             inter.append(k)
-            compare_3.remove(k)
-            compare_4.remove(k)
+            if compare_3 and compare_4:
+                compare_3.remove(k)
+                compare_4.remove(k)
+                
+
             
     # 합집합 : 교집합을 뺀 1,2 만이 가지고 있는 원소와 교집합의 합
     un = inter + compare_3 + compare_4
@@ -35,18 +40,10 @@ def solution(str1, str2):
     # 집합 A와 집합 B가 모두 공집합일 경우에는 나눗셈이 정의되지 않으니 따로 J(A, B) = 1로 정의한다.
     if len(inter) == 0 and len(un) == 0:
         result =  1 * 65536
+    elif len(un) == 0:
+        result = 0
     else:
-        result = int((len(inter)/len(un))*65536)
-        
+        result = math.floor(len(inter)/len(un)*65536)
     return result
-        
-                
-                
-            
-            
-    
-    
-        
-        
-    
-    
+
+print(solution("BAAAA", "AAA"))

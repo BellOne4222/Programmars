@@ -1,36 +1,71 @@
-from collections import deque
+def solution(str1, str2):
+    # 자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다. 두 집합 A, B 사이의 자카드 유사도 J(A, B)는 두 집합의 교집합 크기를 두 집합의 합집합 크기로 나눈 값으로 정의된다.
+    # result = len(intersection) / len(union)
+    # len(intersection) , len(union) = 0, 0 => result = 1
+    # 집합 A와 집합 B가 모두 공집합일 경우에는 나눗셈이 정의되지 않으니 따로 J(A, B) = 1로 정의한다.
+    
+    # 문자열 공백 제거
+    str1 = str1.lower()
+    str2 = str2.lower()
+    
+    # 두 문장을 두 글자씩 끊어서 배열 생성
+    compare_1 = [] 
+    compare_2 = [] 
+    for i in range(len(str1)-1):
+        if str1[i:i+2].isalpha() == True and str1[i:i+2] not in " ":
+            compare_1.append(str1[i:i+2])
+    for j in range(len(str2)-1):
+        if str2[j:j+2].isalpha() == True and str2[j:j+2] not in " ":
+            compare_2.append(str2[j:j+2])
+    
+    # 교집합 개수, 합집합 개수
+    inter = []
+    un = []
+    
+    for k in compare_2:
+        if k in compare_1:
+            inter.append(k)
+    
+    inter_dict_1 = {n:0 for n in inter}
+    inter_dict_2 = {n:0 for n in inter}
+    for l in inter:
+        for m in compare_1:
+            if m == l:
+                inter_dict_1[l] += 1
+        for o in compare_2:
+            if o == l:
+                inter_dict_2[l] += 1
+    
+    check = list(set(compare_1 + compare_2))
+    for q in check:
+        if q in inter:
+            check.remove(q)
+    numerator = []
+    denominator = []
+    for p in inter:
+        for q in range(min(inter_dict_1[p], inter_dict_2[p])):
+            numerator.append(p)
+        for r in range(max(inter_dict_1[p], inter_dict_2[p])):
+            denominator.append(p)
+            
+    denominator = denominator + check
+    
+    if len(numerator) == 0 or len(denominator) == 0:
+        result =  1 * 65536
+    else:
+        result = int((len(numerator)/len(denominator))*65536)
+        
+    return result
 
-def solution(priorities, location):
-    # 만약 우선순위 리스트의 길이가 1이라면, 그 프로세스는 1번째로 진행됨.
-    if len(priorities) == 1:
-        return 1
-
-    priorities = deque(priorities)
-    length = len(priorities)  # 우선순위 리스트의 길이 저장
-    process_cnt = 1  # 진행 순서 카운터 초기화 (처음에 1로 초기화하고 시작)
-    compare = priorities.popleft()  # 우선순위 리스트의 첫 번째 프로세스를 후보로 지정
-
-    while priorities:  # 아직 진행해야 할 프로세스가 남아있는 동안 반복
-        if location > 0:  # 특정 프로세스를 찾지 못한 경우 (location이 0보다 큰 경우)
-            if compare < max(priorities):  # 후보 프로세스보다 더 우선순위가 높은 프로세스가 존재하는 경우
-                priorities.append(compare)  # 후보 프로세스를 맨 뒤로 이동시킴 (다시 큐의 맨 뒤로 가게 됨)
-            else:  # 후보 프로세스가 가장 우선순위가 높은 경우
-                process_cnt += 1  # 해당 프로세스를 진행하고 진행 순서 카운터를 증가시킴
-            location -= 1  # 다음 프로세스로 이동하기 위해 위치 값을 1 감소시킴
-
-        else:  # 특정 프로세스를 찾은 경우 (location이 0 이하인 경우)
-            if compare < max(priorities):  # 후보 프로세스보다 더 우선순위가 높은 프로세스가 존재하는 경우
-                priorities.append(compare)  # 후보 프로세스를 맨 뒤로 이동시킴 (다시 큐의 맨 뒤로 가게 됨)
-                location = len(priorities) - 1  # 위치 값을 큐의 맨 뒤로 갱신 (인덱스는 0부터 시작하므로 길이 - 1)
-            else:  # 후보 프로세스가 가장 우선순위가 높은 경우
-                break  # 해당 프로세스를 진행하고 반복 종료
-
-        compare = priorities.popleft()  # 다음 후보 프로세스를 선택하기 위해 큐에서 첫 번째 프로세스를 꺼냄
-
-    # 진행할 숫자가 가장 마지막에 나왔을 경우 (큐에 남은 프로세스가 없을 경우)
-    if not priorities:
-        result = length  # 전체 프로세스의 개수가 정답
-    else:  # 아직 진행해야 할 프로세스가 남아있는 경우
-        result = process_cnt  # 현재까지 진행한 프로세스의 개수가 정답
-
-    return result  # 최종 정답 반환
+print(solution("handshake","shake hands"))
+        
+                
+                
+            
+            
+    
+    
+        
+        
+    
+    
