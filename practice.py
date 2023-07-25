@@ -1,71 +1,23 @@
-def solution(str1, str2):
-    # 자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다. 두 집합 A, B 사이의 자카드 유사도 J(A, B)는 두 집합의 교집합 크기를 두 집합의 합집합 크기로 나눈 값으로 정의된다.
-    # result = len(intersection) / len(union)
-    # len(intersection) , len(union) = 0, 0 => result = 1
-    # 집합 A와 집합 B가 모두 공집합일 경우에는 나눗셈이 정의되지 않으니 따로 J(A, B) = 1로 정의한다.
+# 유저가 탐험할수 있는 최대 던전 수를 return 하도록을 보고 dp 보다는 dfs로 모든 경우의 수를 보고 거기에서 가장 깊이 탐험한(탐험을 가장 많이 한) 경우에서의 탐험 횟수를 반환하는 방식을 생각해서 구현
+
+result = 0
+
+def dfs(k, dungeons, adventure, adventured):
+    global result
+    # 유저가 탐험할수 있는 최대 던전 수를 return
+    result = max(result, adventure)
     
-    # 문자열 공백 제거
-    str1 = str1.lower()
-    str2 = str2.lower()
-    
-    # 두 문장을 두 글자씩 끊어서 배열 생성
-    compare_1 = [] 
-    compare_2 = [] 
-    for i in range(len(str1)-1):
-        if str1[i:i+2].isalpha() == True and str1[i:i+2] not in " ":
-            compare_1.append(str1[i:i+2])
-    for j in range(len(str2)-1):
-        if str2[j:j+2].isalpha() == True and str2[j:j+2] not in " ":
-            compare_2.append(str2[j:j+2])
-    
-    # 교집합 개수, 합집합 개수
-    inter = []
-    un = []
-    
-    for k in compare_2:
-        if k in compare_1:
-            inter.append(k)
-    
-    inter_dict_1 = {n:0 for n in inter}
-    inter_dict_2 = {n:0 for n in inter}
-    for l in inter:
-        for m in compare_1:
-            if m == l:
-                inter_dict_1[l] += 1
-        for o in compare_2:
-            if o == l:
-                inter_dict_2[l] += 1
-    
-    check = list(set(compare_1 + compare_2))
-    for q in check:
-        if q in inter:
-            check.remove(q)
-    numerator = []
-    denominator = []
-    for p in inter:
-        for q in range(min(inter_dict_1[p], inter_dict_2[p])):
-            numerator.append(p)
-        for r in range(max(inter_dict_1[p], inter_dict_2[p])):
-            denominator.append(p)
+    for i in range(len(dungeons)):
+        if k >= dungeons[i][0] and adventured[i] == 0: # 현재 피로도가 탐험 할 던전의 최소 피로도 보다 크거나 같고, 아직 탐험하지 않았다면
+            adventured[i] = 1 # 탐험 처리
+            dfs(k-dungeons[i][1], dungeons, adventure+1, adventured) # 현재 피로도에서 탐험한 던전의 필요 피로도만큼 빼주고, 탐험한 횟수 1 추가 해서 dfs 다시 호출
+            adventured[i] = 0 # 모든 경우의 수를 구하기 위해서 탐험한 곳을 안한 곳으로 재설정해서 탐색
             
-    denominator = denominator + check
-    
-    if len(numerator) == 0 or len(denominator) == 0:
-        result =  1 * 65536
-    else:
-        result = int((len(numerator)/len(denominator))*65536)
-        
+            
+def solution(k, dungeons):
+    adventured = [0] * len(dungeons) # 탐험 할 지역 생성
+    dfs(k, dungeons, 0, adventured) # 현재 피로도, 피로도 배열, 탐험 횟수, 탐험 할 지역
     return result
 
-print(solution("handshake","shake hands"))
+print(solution(80, [[80,20],[50,40],[30,10]]))
         
-                
-                
-            
-            
-    
-    
-        
-        
-    
-    

@@ -18,5 +18,6 @@ def solution(k, dungeons):
     adventured = [0] * len(dungeons) # 탐험 할 지역 생성
     dfs(k, dungeons, 0, adventured) # 현재 피로도, 피로도 배열, 탐험 횟수, 탐험 할 지역
     return result
-    
+
+print(solution(80, [[80,20],[50,40],[30,10]]))
         
