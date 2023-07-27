@@ -1,18 +1,22 @@
-result = 0
+from collections import deque
 
-def dfs(numbers, target, case_cnt, num):
-    global result
-    if case_cnt == len(numbers):
-        if num == target:
-            result += 1
-        return 
+def solution(phone_book):
+    phone_book.sort() # ['119', '1195524421', '97674223']
+    phone_book = deque(phone_book)
+    hash_table = {}
+    result = True
     
-    dfs(numbers, target, case_cnt+1, num + numbers[case_cnt])
-    dfs(numbers, target, case_cnt+1, num - numbers[case_cnt])
+    for j in range(len(phone_book)):
+        compare = phone_book.popleft()
+        for i in phone_book:
+            hash_table[i[:len(compare)]] = 1
+        if compare in hash_table:
+            result = False
+            return result
+        else:
+            hash_table = {}
+            
+            
     
-        
-        
-
-def solution(numbers, target):
-    dfs(numbers, target, 0, 0)
+    
     return result
