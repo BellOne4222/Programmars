@@ -1,10 +1,16 @@
 def solution(phone_book):
-    phone_book.sort() # 전화번호 책 정렬
-
-    for i in range(len(phone_book) - 1):
-        if phone_book[i] == phone_book[i + 1][:len(phone_book[i])]:
-            # 전화번호를 두개씩 비교하여 지금 전화번호와 다음 전화번호의 접두사가 같으면 false 반환
-            return False
-
-    # 모든 번호들의 접두사를 비교한 후 중복된 접두사가 없으면 True를 반환
+    # 1. Hash map을 만든다
+    hash_map = {}
+    for phone_number in phone_book:
+        hash_map[phone_number] = 1
+    
+    # 2. 접두어가 Hash map에 존재하는지 찾는다
+    for phone_number in phone_book:
+        jubdoo = ""
+        for number in phone_number:
+            jubdoo += number
+            # 3. 접두어를 찾아야 한다 (기존 번호와 같은 경우 제외)
+            if jubdoo in hash_map and jubdoo != phone_number:
+                return False
     return True
+
