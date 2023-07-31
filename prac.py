@@ -1,18 +1,17 @@
-result = 0
+import heapq
 
-def dfs(numbers, target, case_cnt, num):
-    global result
-    if case_cnt == len(numbers):
-        if num == target:
-            result += 1
-        return 
+def solution(scoville, K):
+    heapq.heapify(scoville)
+    mix = 0
     
-    dfs(numbers, target, case_cnt+1, num + numbers[case_cnt])
-    dfs(numbers, target, case_cnt+1, num - numbers[case_cnt])
+    if scoville[0] >= K:
+        return mix
     
-        
-        
-
-def solution(numbers, target):
-    dfs(numbers, target, 0, 0)
-    return result
+    while scoville[0] < K:
+        if len(scoville) == 1:
+            return -1
+        a = heapq.heappop(scoville)
+        b = heapq.heappop(scoville)
+        heapq.heappush(scoville, a + (b*2))
+        mix += 1
+    return mix
