@@ -1,12 +1,8 @@
 import math
 
 def minus_square(w,h):
-    minus = w % h
-    
-    if minus:
-        return minus_square(h, minus)
-    else:
-        return h
+    minus = w + h - math.gcd(w, h)
+    return minus
 
 def solution(w,h):
     all_square = w * h
