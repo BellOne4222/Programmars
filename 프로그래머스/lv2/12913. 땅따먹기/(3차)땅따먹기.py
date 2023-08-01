@@ -1,3 +1,6 @@
+# DP - Bottom Up 방식
+# 가능한 경우의 수 중 좋은 경우의 수만 남기는 greedy 알고리즘
+
 def solution(land):
     # 높은 점수들을 반환 
     high_score_land = [0,0,0,0]
