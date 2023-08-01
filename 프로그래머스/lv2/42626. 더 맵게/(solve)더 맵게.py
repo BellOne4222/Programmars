@@ -1,7 +1,7 @@
 # heapq.heapify(scoville) # scoville을 힙으로 지정
 # heapq.heappop(scoville) # scoville에서 가장 작은 원소를 pop
 # heapq.heappush(scoville, new) # scoville에 섞은 스코빌 지수를 추가
-
+# heap에서 [0]는 이진트리 방식이기 때문에 가장 작은 원소를 반환
 import heapq
 
 def solution(scoville, K):
