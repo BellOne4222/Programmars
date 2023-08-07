@@ -1,17 +1,38 @@
-import heapq
+from collections import deque
 
-def solution(scoville, K):
-    heapq.heapify(scoville)
-    mix = 0
+
     
-    if scoville[0] >= K:
-        return mix
+# 이동 방향에 따른 x,y 정의
+dx = [1,-1,0,0] # 동서남북
+dy = [0,0,1,-1]
+
+# 가장 가까운 칸부터 가므로 bfs 사용
+def bfs(x,y,maps,n,m):
+    adventure = deque()
+    adventure.append((x,y))
     
-    while scoville[0] < K:
-        if len(scoville) == 1:
-            return -1
-        a = heapq.heappop(scoville)
-        b = heapq.heappop(scoville)
-        heapq.heappush(scoville, a + (b*2))
-        mix += 1
-    return mix
+    while maps:
+        x, y = adventure.popleft()
+        for i in range(len(dx)):
+            next_x = x + dx[i]
+            next_y = x + dy[i]
+            
+            if next_x < 0 or next_y < 0 or next_x >= n or next_y >= m:
+                continue
+            if maps[next_x][next_y] == 0:
+                continue
+            if maps[next_x][next_y] == 1:
+                maps[next_x][next_y] == maps[x][y] + 1
+                adventure.append((next_x,next_y))
+    result = maps[n-1][m-1]
+    return
+                
+def solution(maps):
+    
+    n = len(maps[0])
+    m = len(maps)
+    bfs(0,0,maps,n,m)
+    if result == 0:
+        result = -1
+    else:
+        return result
