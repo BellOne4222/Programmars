@@ -1,11 +1,6 @@
 from collections import deque
 
 
-    
-# 이동 방향에 따른 x,y 정의
-dx = [1,-1,0,0] # 동서남북
-dy = [0,0,1,-1]
-
 # 가장 가까운 칸부터 가므로 bfs 사용
 def bfs(x,y,maps,n,m):
     adventure = deque()
