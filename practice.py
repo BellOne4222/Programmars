@@ -20,6 +20,7 @@ def solution(dirs):
                 check.append(road)
                 cnt += 1
             else:
+                before = sm
                 continue
             
             
@@ -32,6 +33,7 @@ def solution(dirs):
                 check.append(road)
                 cnt += 1
             else:
+                before = sm
                 continue
         elif dirs[i] == 'L':
             sm = tuple(sum(j) for j in zip(before, left))
@@ -42,6 +44,7 @@ def solution(dirs):
                 check.append(road)
                 cnt += 1
             else:
+                before = sm
                 continue
         else:
             sm = tuple(sum(j) for j in zip(before, right))
@@ -52,9 +55,11 @@ def solution(dirs):
                 check.append(road)
                 cnt += 1
             else:
+                before = sm
                 continue
+                
         
         before = sm
         
     return cnt
-        
+print(solution("ULURRDLLU"))       
