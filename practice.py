@@ -13,6 +13,8 @@ def solution(dirs):
     for i in range(len(dirs)):
         if dirs[i] == 'U':
             sm = tuple(sum(j) for j in zip(before, up))
+            if sm[0] > 5 or sm[0] < -5 or sm[1] > 5 or sm[1] < -5:
+                continue
             road = (before,sm)
             if road not in check:
                 check.append(road)
@@ -23,6 +25,8 @@ def solution(dirs):
             
         elif dirs[i] == 'D':
             sm = tuple(sum(j) for j in zip(before, down))
+            if sm[0] > 5 or sm[0] < -5 or sm[1] > 5 or sm[1] < -5:
+                continue
             road = (before,sm)
             if road not in check:
                 check.append(road)
@@ -31,6 +35,8 @@ def solution(dirs):
                 continue
         elif dirs[i] == 'L':
             sm = tuple(sum(j) for j in zip(before, left))
+            if sm[0] > 5 or sm[0] < -5 or sm[1] > 5 or sm[1] < -5:
+                continue
             road = (before,sm)
             if road not in check:
                 check.append(road)
@@ -39,6 +45,8 @@ def solution(dirs):
                 continue
         else:
             sm = tuple(sum(j) for j in zip(before, right))
+            if sm[0] > 5 or sm[0] < -5 or sm[1] > 5 or sm[1] < -5:
+                continue
             road = (before,sm)
             if road not in check:
                 check.append(road)
