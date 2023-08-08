@@ -1,33 +1,52 @@
-from collections import deque
-
-
-# 가장 가까운 칸부터 가므로 bfs 사용
-def bfs(x,y,maps,n,m):
-    adventure = deque()
-    adventure.append((x,y))
+def solution(dirs):
+    start = (0,0)
+    up = (0,1)
+    down = (0,-1)
+    left = (-1,0)
+    right = (1,0)
+    before = start
+    check = []
+    sm = 0
+    road = 0
+    cnt = 0
     
-    while maps:
-        x, y = adventure.popleft()
-        for i in range(len(dx)):
-            next_x = x + dx[i]
-            next_y = x + dy[i]
+    for i in range(len(dirs)):
+        if dirs[i] == 'U':
+            sm = tuple(sum(j) for j in zip(before, up))
+            road = (before,sm)
+            if road not in check:
+                check.append(road)
+                cnt += 1
+            else:
+                continue
             
-            if next_x < 0 or next_y < 0 or next_x >= n or next_y >= m:
+            
+        elif dirs[i] == 'D':
+            sm = tuple(sum(j) for j in zip(before, down))
+            road = (before,sm)
+            if road not in check:
+                check.append(road)
+                cnt += 1
+            else:
                 continue
-            if maps[next_x][next_y] == 0:
+        elif dirs[i] == 'L':
+            sm = tuple(sum(j) for j in zip(before, left))
+            road = (before,sm)
+            if road not in check:
+                check.append(road)
+                cnt += 1
+            else:
                 continue
-            if maps[next_x][next_y] == 1:
-                maps[next_x][next_y] == maps[x][y] + 1
-                adventure.append((next_x,next_y))
-    result = maps[n-1][m-1]
-    return
-                
-def solution(maps):
-    
-    n = len(maps[0])
-    m = len(maps)
-    bfs(0,0,maps,n,m)
-    if result == 0:
-        result = -1
-    else:
-        return result
+        else:
+            sm = tuple(sum(j) for j in zip(before, right))
+            road = (before,sm)
+            if road not in check:
+                check.append(road)
+                cnt += 1
+            else:
+                continue
+        
+        before = sm
+        
+    return cnt
+        
